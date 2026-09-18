@@ -34,9 +34,16 @@ jobs:
       - name: Build & test demo
         run: |
           cd Examples
+          simulator_id="$(xcrun simctl list devices available \
+            | awk -F '[()]' '/iPhone/ && $2 ~ /^[0-9A-F-]+$/ { print $2; exit }')"
+          if [[ -z "$simulator_id" ]]; then
+            echo "::error::No available iPhone Simulator was found on the runner"
+            exit 1
+          fi
+          echo "Using iPhone Simulator: $simulator_id"
           xcodebuild \
             -project FaceAwareImageKitExamples.xcodeproj \
             -scheme FaceAwareImageLab \
-            -destination 'platform=iOS Simulator,name=iPhone 15' \
+            -destination "platform=iOS Simulator,id=$simulator_id" \
             -configuration Debug \
             test
