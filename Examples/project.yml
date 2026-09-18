@@ -1,0 +1,87 @@
+name: FaceAwareImageKitExamples
+
+options:
+  minimumXcodeGenVersion: 2.46.0
+  createIntermediateGroups: true
+  defaultSourceDirectoryType: syncedFolder
+  projectFormat: xcode16_0
+  deploymentTarget:
+    iOS: "17.0"
+    macOS: "14.0"
+    visionOS: "1.0"
+
+configs:
+  Debug: debug
+  Release: release
+
+settings:
+  base:
+    SWIFT_VERSION: "5.0"
+    SWIFT_DEFAULT_ACTOR_ISOLATION: nonisolated
+    SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY: YES
+    SWIFT_EMIT_LOC_STRINGS: YES
+    STRING_CATALOG_GENERATE_SYMBOLS: YES
+    LOCALIZATION_PREFERS_STRING_CATALOGS: YES
+    GENERATE_INFOPLIST_FILE: YES
+    CODE_SIGN_STYLE: Automatic
+
+packages:
+  FaceAwareImageKit:
+    path: ..
+
+targets:
+  FaceAwareImageLab:
+    type: application
+    platform: iOS
+    deploymentTarget: "17.0"
+    sources:
+      - path: FaceAwareImageLab
+        type: syncedFolder
+    dependencies:
+      - package: FaceAwareImageKit
+        product: FaceAwareImageKit
+        link: true
+        embed: true
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.example.faceaware.FaceAwareImageLab
+        PRODUCT_NAME: "$(TARGET_NAME)"
+        TARGETED_DEVICE_FAMILY: "1,2"
+        SDKROOT: iphoneos
+        ENABLE_DEBUG_DYLIB: NO
+        INFOPLIST_KEY_UILaunchScreen_Generation: YES
+        INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone: "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight"
+        INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad: "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight"
+    scheme:
+      testTargets:
+        - FaceAwareImageLabTests
+      gatherCoverageData: false
+
+  FaceAwareImageLabTests:
+    type: bundle.unit-test
+    platform: iOS
+    deploymentTarget: "17.0"
+    sources:
+      - path: FaceAwareImageLabTests
+        type: group
+    dependencies:
+      - target: FaceAwareImageLab
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.example.faceaware.FaceAwareImageLabTests
+        GENERATE_INFOPLIST_FILE: YES
+
+  FaceAwareImageKitConsumerTests:
+    type: bundle.unit-test
+    platform: iOS
+    deploymentTarget: "15.0"
+    sources:
+      - path: FaceAwareImageKitConsumerTests
+        type: group
+    dependencies:
+      - package: FaceAwareImageKit
+        product: FaceAwareImageKit
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.example.faceaware.FaceAwareImageKitConsumerTests
+        GENERATE_INFOPLIST_FILE: YES
