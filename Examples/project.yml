@@ -41,7 +41,6 @@ targets:
       - package: FaceAwareImageKit
         product: FaceAwareImageKit
         link: true
-        embed: true
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.example.faceaware.FaceAwareImageLab

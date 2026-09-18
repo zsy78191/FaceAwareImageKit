@@ -1,5 +1,7 @@
 # FaceAwareImageKit
 
+[简体中文](README.zh-CN.md) | **English**
+
 > Aspect-fill SwiftUI images that always frame the face.
 
 FaceAwareImageKit loads remote images, runs on-device Vision analysis to locate faces and salient objects, and renders the result so the focal point stays in view — even when the layout aspect ratio would otherwise crop it out.
@@ -72,6 +74,15 @@ FaceAwareAsyncImage(url: url) { phase in       // phase: FaceAwareImagePhase
     }
 }
 ```
+
+## Example
+
+The included Image Lab demo compares standard `scaledToFill` rendering with a face-aware focal-point crop. The face-aware result keeps the subject visible when the image is cropped to the same aspect ratio.
+
+<p align="center">
+  <img src="docs/images/face-aware-example-man.png" alt="Face-aware crop example with a man" width="320" />
+  <img src="docs/images/face-aware-example-woman.png" alt="Face-aware crop example with a woman" width="320" />
+</p>
 
 ## Configuration
 
